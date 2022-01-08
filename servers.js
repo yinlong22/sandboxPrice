@@ -3,6 +3,7 @@ const http = require('http')
 const superagent = require('superagent');
 // const qs = require("querystring");
 const server = http.createServer()
+const fs = require('fs')
 server.listen(8808)
 
 let users = []
@@ -58,7 +59,7 @@ server.on('request', function (req, res) {
                     //     reqBodyStr += data
                     // })
                     // req.on("end", function (data) {
-                    //     const user = JSON.parse(reqBodyStr)
+                    //     const user = qs.parse(reqBodyStr)
                     //     users.push(user)
                     //     res.statusCode = 200
                     //     res.end(JSON.stringify(user))
@@ -70,6 +71,10 @@ server.on('request', function (req, res) {
                     res.end('METHOD_FAIL')
                     break
             }
+            break
+        case '/demo.html':
+            res.statusCode=200
+            fs.createReadStream('./demo.html').pipe(res)
             break
         default:
             res.statusCode = 404
